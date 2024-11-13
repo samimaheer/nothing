@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter for Porshi</title>
+    <style>
+        /* Basic page setup */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1c1c1c; /* Dark background */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            transition: background-color 1s ease; /* Smooth transition */
+        }
+
+        /* Bulb image */
+        .bulb {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: auto;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Envelope (Letter) setup */
+        .envelope {
+            position: absolute;
+            bottom: 30%;
+            width: 250px;
+            height: 170px;
+            background-color: #f0c27b;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            transform: scale(0.7);
+            transition: transform 0.5s ease;
+        }
+
+        /* Envelope shadow */
+        .envelope-shadow {
+            position: absolute;
+            bottom: 5%;
+            width: 250px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            transform: scale(1.2);
+            transition: transform 0.5s ease;
+        }
+
+        /* Envelope open effect */
+        .envelope.open {
+            transform: scale(1);
+        }
+
+        /* Letter inside the envelope */
+        .letter {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .letter.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Text animation inside letter */
+        .letter-text {
+            font-size: 24px;
+            color: #ff4b5c;
+            font-weight: bold;
+            animation: letterAnimation 3s infinite;
+        }
+
+        @keyframes letterAnimation {
+            0% { transform: translateY(-10px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(10px); opacity: 0; }
+        }
+
+        /* Button setup for turning bulb on/off */
+        .switch-container {
+            position: absolute;
+            top: 20%;
+            left: 5%;
+            z-index: 10;
+        }
+
+        .switch-button {
+            background-color: #f0c27b;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .switch-button:hover {
+            background-color: #ff4b5c;
+        }
+
+        /* Show message at the bottom of the page */
+        .message-box {
+            position: absolute;
+            bottom: 10%;
+            width: 100%;
+            text-align: center;
+            color: rgb(54, 38, 38);
+            font-size: 20px;
+            display: none;
+        }
+
+        /* Activate message box when bulb is on */
+        .message-box.show {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Bulb Image -->
+    <img id="bulb" class="bulb" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Light_bulb_icon.svg" alt="Bulb">
+
+    <!-- Envelope -->
+    <div class="envelope" id="envelope">
+        <div class="envelope-shadow"></div>
+    </div>
+
+    <!-- Letter inside envelope -->
+    <div class="letter" id="letter">
+        <div class="letter-text">You are fool </div>
+    </div>
+
+    <!-- Switch Button -->
+    <div class="switch-container">
+        <button class="switch-button" id="switchButton" onclick="toggleBulb()">Turn On Bulb</button>
+    </div>
+
+    <!-- Message Box -->
+    <div class="message-box" id="messageBox">
+        <p>Made by Sami M Maheer 🌟</p>
+    </div>
+
+    <script>
+        let bulbOn = false;
+
+        // Toggle bulb on/off
+        function toggleBulb() {
+            bulbOn = !bulbOn;
+            const bulb = document.getElementById("bulb");
+            const envelope = document.getElementById("envelope");
+            const letter = document.getElementById("letter");
+            const messageBox = document.getElementById("messageBox");
+
+            if (bulbOn) {
+                // Turn on bulb and light up the page
+                document.body.style.backgroundColor = "#fff0d5"; // Light yellow background
+                bulb.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Light_bulb_icon.svg/800px-Light_bulb_icon.svg.png"; // Bulb ON image
+                document.getElementById("switchButton").innerText = "Turn Off Bulb";
+                envelope.classList.add("open"); // Open envelope
+                messageBox.classList.add("show"); // Show the message
+
+                setTimeout(() => {
+                    letter.classList.add("open"); // Show the letter after envelope opens
+                }, 2000); // Delay for letter appearance
+            } else {
+                // Turn off bulb and darken the page
+                document.body.style.backgroundColor = "#1c1c1c"; // Dark background
+                bulb.src = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Light_bulb_icon.svg"; // Bulb OFF image
+                document.getElementById("switchButton").innerText = "Turn On Bulb";
+                envelope.classList.remove("open"); // Close envelope
+                letter.classList.remove("open"); // Hide the letter
+                messageBox.classList.remove("show"); // Hide the message
+            }
+        }
+    </script>
+
+</body>
+</html>
